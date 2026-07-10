@@ -105,6 +105,11 @@
                 <version>${jaxb-api}</version>
             </dependency>
 
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>8.5.13</version>
+            </dependency>
             <!-- poi -->
             <dependency>
                 <groupId>org.apache.poi</groupId>

@@ -6,3 +6,8 @@ sky:
     database: sky_take_out
     username: sky_out_take_user
     password: sky_out_take_password
+  minio-oss:
+    endpoint: http://192.168.31.13:9000
+    access-key-id: user
+    access-key-secret: password
+    bucket-name: sky-itcast
