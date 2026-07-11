@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sky.mapper.DishMapper">
-
+<mapper namespace="com.sky.mapper.SetmealMapper">
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO dish (name, category_id, price, image, description, status, create_time, update_time, create_user,
+        INSERT INTO setmeal(category_id, name, price, status, description, image, create_time, update_time, create_user,
         update_user)
-        VALUES (#{name}, #{categoryId}, #{price}, #{image}, #{description}, #{status}, #{createTime}, #{updateTime},
+        VALUES (#{categoryId}, #{name}, #{price}, #{status}, #{description}, #{image}, #{createTime}, #{updateTime},
         #{createUser}, #{updateUser})
     </insert>
-
-    <select id="pageQuery" resultType="com.sky.vo.DishVO">
-        SELECT d.*, c.name category_name FROM dish d LEFT JOIN category c ON d.category_id = c.id
+    <select id="pageQuery" resultType="com.sky.entity.Setmeal">
+        SELECT * FROM setmeal
         <where>
             <if test="name != null and name != ''">
-                AND d.name LIKE CONCAT('%', #{name}, '%')
+                AND name LIKE CONCAT('%', #{name}, '%')
             </if>
             <if test="categoryId != null">
-                AND d.category_id = #{categoryId}
+                AND category_id = #{categoryId}
             </if>
             <if test="status != null">
-                AND d.status = #{status}
+                AND status = #{status}
             </if>
         </where>
     </select>
 
-    <delete id="deleteBatchByIds">
-        DELETE FROM dish WHERE id IN
-        <foreach collection="ids" item="id" open="(" separator="," close=")">
+    <delete id="batchDeleteById">
+        DELETE FROM setmeal WHERE id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
             #{id}
         </foreach>
     </delete>
 
     <update id="update">
-        UPDATE dish
+        UPDATE setmeal
         <set>
             <if test="name != null and name != ''">
                 name = #{name},
@@ -56,8 +54,8 @@
             <if test="updateTime != null">
                 update_time = #{updateTime},
             </if>
-            <if test="updateUser != null">
-                update_user = #{updateUser},
+            <if test="createTime != null">
+                create_time = #{createTime},
             </if>
         </set>
         WHERE id = #{id}

@@ -29,7 +29,7 @@ public class DishController {
 
     @PostMapping
     @ApiOperation(value = "新增菜品")
-    public Result addDish(@RequestBody DishDTO dishDTO){
+    public Result addDish(@RequestBody DishDTO dishDTO) {
         log.info("新增菜品：{}", dishDTO.toString());
         dishService.addDishWithFlavor(dishDTO);
         return Result.success();
@@ -45,6 +45,7 @@ public class DishController {
 
     /**
      * 菜品批量删除
+     *
      * @param ids
      * @return
      */
@@ -58,6 +59,7 @@ public class DishController {
 
     /**
      * 根据id查菜品
+     *
      * @param id
      * @return
      */
@@ -72,6 +74,7 @@ public class DishController {
 
     /**
      * 修改菜品
+     *
      * @param dishDTO
      * @return
      */
@@ -89,5 +92,12 @@ public class DishController {
         log.info("菜品起售状态更新：{}, {}", status.toString(), id.toString());
         dishService.updateStatus(status, id);
         return Result.success();
+    }
+
+    @GetMapping("/list")
+    @ApiOperation(value = "分类下菜品列表")
+    public Result<List<Dish>> listDish(@RequestParam Long categoryId) {
+        List<Dish> dishes = dishService.listDish(categoryId);
+        return Result.success(dishes);
     }
 }

@@ -13,7 +13,6 @@ import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealDishMapper;
 import com.sky.result.PageResult;
-import com.sky.service.CategoryService;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -80,7 +78,7 @@ public class DishServiceImpl implements DishService {
                 throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
             }
         }
-        List<Long> setmealIds = setmealDishMapper.getSetmealDishIdsBySetmealIds(ids);
+        List<Long> setmealIds = setmealDishMapper.getSetmealIdsByDishIds(ids);
         if (setmealIds != null && setmealIds.size() > 0) {
             throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
@@ -125,4 +123,7 @@ public class DishServiceImpl implements DishService {
         dishMapper.update(dish);
     }
 
+    public List<Dish> listDish(Long categoryId) {
+        return dishMapper.getDishesByCategoryId(categoryId);
+    }
 }
