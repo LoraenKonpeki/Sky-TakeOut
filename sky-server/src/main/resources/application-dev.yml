@@ -11,3 +11,7 @@ sky:
     access-key-id: user
     access-key-secret: password
     bucket-name: sky-itcast
+  redis:
+    host: localhost
+    password: sky-out
+    database: 1
